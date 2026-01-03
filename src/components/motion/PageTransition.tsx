@@ -17,7 +17,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
           y: 0,
           transition: {
             duration: 0.4,
-            ease: [0.21, 0.47, 0.32, 0.98],
+            ease: [0.21, 0.47, 0.32, 0.98] as const,
           }
         }}
         exit={{ 
@@ -25,7 +25,7 @@ export function PageTransition({ children }: { children: ReactNode }) {
           y: -20,
           transition: {
             duration: 0.3,
-            ease: [0.21, 0.47, 0.32, 0.98],
+            ease: [0.21, 0.47, 0.32, 0.98] as const,
           }
         }}
       >

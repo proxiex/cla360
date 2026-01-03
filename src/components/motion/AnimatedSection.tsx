@@ -1,7 +1,10 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { useRef, ReactNode } from "react";
+
+const easeBezier: [number, number, number, number] = [0.21, 0.47, 0.32, 0.98];
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -21,7 +24,7 @@ export function AnimatedSection({
   const ref = useRef(null);
   const isInView = useInView(ref, { once, amount: 0.2 });
 
-  const variants = {
+  const variants: Variants = {
     hidden: {
       opacity: 0,
       y: direction === "up" ? 50 : direction === "down" ? -50 : 0,
@@ -34,7 +37,7 @@ export function AnimatedSection({
       transition: {
         duration: 0.7,
         delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: easeBezier,
       },
     },
   };
@@ -66,7 +69,7 @@ export function AnimatedText({
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -77,14 +80,14 @@ export function AnimatedText({
     },
   };
 
-  const item = {
+  const item: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: easeBezier,
       },
     },
   };

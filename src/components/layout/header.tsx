@@ -46,7 +46,7 @@ export function Header() {
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+      transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] as const }}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <motion.div 

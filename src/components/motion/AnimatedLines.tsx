@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 const lines = [
   { id: 1, d: "M 80 80 L 200 80 L 200 180", delay: 0 },
@@ -9,19 +10,24 @@ const lines = [
   { id: 4, d: "M 520 380 L 580 380 L 580 500 L 680 500", delay: 0.6 },
 ];
 
-const pathVariants = {
+const pathVariants: Variants = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: (delay: number) => ({
     pathLength: 1,
     opacity: 1,
     transition: {
-      pathLength: { duration: 1.5, delay, ease: "easeInOut" },
+      pathLength: { 
+        duration: 1.5, 
+        delay, 
+        ease: [0.16, 1, 0.3, 1] as const // cubic-bezier values as array
+      },
       opacity: { duration: 0.3, delay },
     },
-  }),
+    transitionEnd: { pathLength: 1 } // Ensure final state is maintained
+  })
 };
 
-const dotVariants = {
+const dotVariants: Variants = {
   hidden: { scale: 0, opacity: 0 },
   visible: (delay: number) => ({
     scale: 1,
@@ -33,14 +39,14 @@ const dotVariants = {
   }),
 };
 
-const pulseVariants = {
+const pulseVariants: Variants = {
   pulse: {
     scale: [1, 1.3, 1],
     opacity: [1, 0.7, 1],
     transition: {
       duration: 2,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: [0.4, 0, 0.2, 1] as const, // Using cubic-bezier values for easeInOut
     },
   },
 };
