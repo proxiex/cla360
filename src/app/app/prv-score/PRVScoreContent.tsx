@@ -338,6 +338,16 @@ export function PRVScoreContent() {
             exit={{ opacity: 0 }}
             className="space-y-6"
           >
+            {/* Status Badge */}
+            <FadeIn>
+              <div className="flex justify-center">
+                <Badge className="bg-green-100 text-green-700 border border-green-200 px-4 py-1.5">
+                  <CheckCircle className="mr-2 h-4 w-4" />
+                  Status: University-Eligible (Verified)
+                </Badge>
+              </div>
+            </FadeIn>
+
             {/* Score Card */}
             <FadeIn delay={0.1}>
               <Card className="border-2 border-primary/20 overflow-hidden relative">

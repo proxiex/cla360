@@ -24,91 +24,316 @@ import {
   Award,
   Target,
   Lightbulb,
+  Shield,
+  Building2,
+  GraduationCap,
+  Scale,
+  Cpu,
+  Compass,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const categories = [
   { id: "all", label: "All Research", icon: FileText },
-  { id: "trends", label: "Market Trends", icon: TrendingUp },
-  { id: "insights", label: "Student Insights", icon: Users },
-  { id: "policy", label: "Policy & Compliance", icon: Award },
-  { id: "data", label: "Data Reports", icon: BarChart3 },
+  { id: "geopolitics", label: "Global Politics & Mobility", icon: Globe },
+  { id: "africa", label: "Africa-Focused", icon: Compass },
+  { id: "visa", label: "Visa Readiness & Risk", icon: Shield },
+  { id: "verification", label: "Verification & Trust", icon: Award },
+  { id: "universities", label: "Universities & Enrollment", icon: Building2 },
+  { id: "sponsors", label: "Sponsors & Funding", icon: Target },
+  { id: "technology", label: "Technology & AI", icon: Cpu },
+  { id: "policy", label: "Policy & Ethics", icon: Scale },
+  { id: "future", label: "Future Scenarios", icon: TrendingUp },
+  { id: "cla360", label: "CLA360 Perspectives", icon: Lightbulb },
 ];
 
 const researchPapers = [
+  // Global Politics & Student Mobility
   {
     id: 1,
-    title: "Global Student Mobility Trends 2024",
-    category: "trends",
-    date: "December 2024",
-    readTime: "12 min read",
-    downloads: "2.3K",
-    excerpt: "An in-depth analysis of international student movement patterns, emerging destinations, and the impact of post-pandemic policies on global education.",
-    tags: ["Mobility", "Trends", "2024"],
+    title: "How Geopolitics Is Quietly Reshaping Global Student Mobility in 2025–2030",
+    category: "geopolitics",
+    date: "January 2025",
+    readTime: "14 min read",
+    excerpt: "An analysis of how shifting international relations and policy changes are redirecting student flows between major destination countries.",
+    tags: ["Geopolitics", "Mobility", "2025"],
     featured: true,
   },
   {
     id: 2,
-    title: "The PRV Score Framework: Methodology & Validation",
-    category: "data",
-    date: "November 2024",
-    readTime: "18 min read",
-    downloads: "1.8K",
-    excerpt: "Technical documentation of the Pre-Readiness Verification (PRV) scoring system, including validation studies and predictive accuracy metrics.",
-    tags: ["PRV", "Methodology", "Research"],
+    title: "From Soft Power to Selectivity: Why Student Visas Are Becoming a National Security Issue",
+    category: "geopolitics",
+    date: "January 2025",
+    readTime: "12 min read",
+    excerpt: "Examining the evolving relationship between immigration policy and national security considerations in student visa frameworks.",
+    tags: ["Visa Policy", "Security", "Trends"],
     featured: true,
   },
   {
     id: 3,
-    title: "Document Fraud in International Admissions",
-    category: "policy",
-    date: "October 2024",
+    title: "How Immigration Politics in the U.S., Canada, and Europe Affect African Applicants Disproportionately",
+    category: "geopolitics",
+    date: "December 2024",
     readTime: "15 min read",
-    downloads: "3.1K",
-    excerpt: "A comprehensive study on the prevalence of document fraud, detection methods, and the role of verification systems in maintaining academic integrity.",
-    tags: ["Fraud", "Compliance", "Security"],
+    excerpt: "Data-driven analysis of visa approval disparities and the systemic factors that create unequal access to international education.",
+    tags: ["Immigration", "Africa", "Policy"],
     featured: false,
   },
   {
     id: 4,
-    title: "Financial Readiness & Visa Success Rates",
-    category: "insights",
-    date: "September 2024",
+    title: "Why Visa Policy Is Now Education Policy",
+    category: "geopolitics",
+    date: "November 2024",
     readTime: "10 min read",
-    downloads: "1.5K",
-    excerpt: "Correlation analysis between financial preparedness indicators and visa approval outcomes across major study destinations.",
-    tags: ["Finance", "Visa", "Success"],
+    excerpt: "How visa regulations have become the de facto gatekeepers of global education access.",
+    tags: ["Visa", "Education", "Policy"],
     featured: false,
   },
+  // Africa-Focused Mobility Dynamics
   {
     id: 5,
-    title: "AI in Education Verification: Opportunities & Challenges",
-    category: "trends",
-    date: "August 2024",
-    readTime: "14 min read",
-    downloads: "2.7K",
-    excerpt: "Exploring the role of artificial intelligence in streamlining credential verification while addressing privacy and ethical considerations.",
-    tags: ["AI", "Technology", "Ethics"],
-    featured: false,
+    title: "Why Africa Will Drive Global Student Mobility Growth Over the Next Decade",
+    category: "africa",
+    date: "January 2025",
+    readTime: "16 min read",
+    excerpt: "Demographic trends, economic growth, and educational demand position Africa as the next frontier in international student mobility.",
+    tags: ["Africa", "Growth", "Demographics"],
+    featured: true,
   },
   {
     id: 6,
-    title: "Student Decision-Making: What Influences University Choice",
-    category: "insights",
-    date: "July 2024",
+    title: "Country-by-Country Breakdown: How Visa Approval Rates Differ Across Africa",
+    category: "africa",
+    date: "December 2024",
+    readTime: "18 min read",
+    excerpt: "Comprehensive data analysis of visa outcomes by country of origin, revealing significant disparities in approval rates.",
+    tags: ["Africa", "Visa Data", "Analysis"],
+    featured: false,
+  },
+  {
+    id: 7,
+    title: "Why African Credentials Are Trusted Less — and How Verification Changes That",
+    category: "africa",
+    date: "November 2024",
+    readTime: "12 min read",
+    excerpt: "Examining the trust deficit facing African academic credentials and the role of verification infrastructure in addressing it.",
+    tags: ["Credentials", "Trust", "Verification"],
+    featured: false,
+  },
+  {
+    id: 8,
+    title: "The Hidden Cost of Applying Abroad from Africa",
+    category: "africa",
+    date: "October 2024",
     readTime: "11 min read",
-    downloads: "1.9K",
-    excerpt: "Survey results from 5,000+ students revealing key factors that influence destination and institution selection in international education.",
-    tags: ["Survey", "Behavior", "Choice"],
+    excerpt: "Beyond tuition: analyzing the full financial burden of international education applications for African students.",
+    tags: ["Costs", "Access", "Barriers"],
+    featured: false,
+  },
+  // Visa Readiness & Risk Signals
+  {
+    id: 9,
+    title: "What Visa Officers Actually Look For (Beyond the Application Checklist)",
+    category: "visa",
+    date: "January 2025",
+    readTime: "13 min read",
+    excerpt: "Insights into visa assessment criteria that go beyond documentation requirements.",
+    tags: ["Visa", "Assessment", "Insights"],
+    featured: false,
+  },
+  {
+    id: 10,
+    title: "Why Financial Preparedness Is the Strongest Visa Predictor",
+    category: "visa",
+    date: "December 2024",
+    readTime: "10 min read",
+    excerpt: "Data analysis showing the correlation between financial readiness signals and visa approval outcomes.",
+    tags: ["Finance", "Visa", "Prediction"],
+    featured: false,
+  },
+  {
+    id: 11,
+    title: "Early Risk Signals Universities Can Detect Before Issuing an Offer",
+    category: "visa",
+    date: "November 2024",
+    readTime: "14 min read",
+    excerpt: "A framework for identifying readiness indicators that predict successful enrollment outcomes.",
+    tags: ["Risk", "Universities", "Signals"],
+    featured: false,
+  },
+  // Verification, Fraud, and Trust Infrastructure
+  {
+    id: 12,
+    title: "The Global Rise of Academic Document Fraud — and Why Africa Is Over-Policed",
+    category: "verification",
+    date: "January 2025",
+    readTime: "15 min read",
+    excerpt: "Examining fraud prevalence globally while addressing the disproportionate scrutiny applied to certain regions.",
+    tags: ["Fraud", "Verification", "Equity"],
+    featured: false,
+  },
+  {
+    id: 13,
+    title: "Verification vs Policing: Designing Trust Without Exclusion",
+    category: "verification",
+    date: "December 2024",
+    readTime: "12 min read",
+    excerpt: "How verification systems can build trust while avoiding discriminatory outcomes.",
+    tags: ["Trust", "Design", "Inclusion"],
+    featured: false,
+  },
+  {
+    id: 14,
+    title: "What 'University-Grade Verification' Actually Means",
+    category: "verification",
+    date: "November 2024",
+    readTime: "11 min read",
+    excerpt: "Defining standards for verification that meet institutional requirements without creating barriers.",
+    tags: ["Standards", "Verification", "Quality"],
+    featured: false,
+  },
+  // Universities, Enrollment Strategy & Yield
+  {
+    id: 15,
+    title: "Why Application Volume Is a Misleading Metric",
+    category: "universities",
+    date: "January 2025",
+    readTime: "10 min read",
+    excerpt: "Moving beyond vanity metrics to meaningful measures of international recruitment success.",
+    tags: ["Metrics", "Strategy", "Yield"],
+    featured: false,
+  },
+  {
+    id: 16,
+    title: "The True Cost of Low-Intent International Applicants",
+    category: "universities",
+    date: "December 2024",
+    readTime: "12 min read",
+    excerpt: "Calculating the hidden costs of processing applications from students unlikely to enroll.",
+    tags: ["Costs", "Efficiency", "Admissions"],
+    featured: false,
+  },
+  {
+    id: 17,
+    title: "How Universities Can Reduce Visa Denials Without Lowering Standards",
+    category: "universities",
+    date: "November 2024",
+    readTime: "14 min read",
+    excerpt: "Strategies for improving visa outcomes while maintaining academic selectivity.",
+    tags: ["Visa", "Standards", "Strategy"],
+    featured: false,
+  },
+  // Technology, AI & Infrastructure
+  {
+    id: 18,
+    title: "Why Education Needs Trust Infrastructure, Not Marketplaces",
+    category: "technology",
+    date: "January 2025",
+    readTime: "13 min read",
+    excerpt: "The case for verification-first platforms over volume-driven recruitment marketplaces.",
+    tags: ["Infrastructure", "Trust", "EdTech"],
+    featured: false,
+  },
+  {
+    id: 19,
+    title: "AI, Bias, and African Applicants: Designing Fair Systems",
+    category: "technology",
+    date: "December 2024",
+    readTime: "15 min read",
+    excerpt: "Addressing algorithmic bias in education technology and ensuring equitable outcomes.",
+    tags: ["AI", "Bias", "Fairness"],
+    featured: false,
+  },
+  {
+    id: 20,
+    title: "Why Scoring Systems Must Be Transparent to Be Legitimate",
+    category: "technology",
+    date: "November 2024",
+    readTime: "11 min read",
+    excerpt: "The importance of explainability in readiness assessment and verification systems.",
+    tags: ["Transparency", "Scoring", "Trust"],
+    featured: false,
+  },
+  // Policy, Ethics & Responsible Mobility
+  {
+    id: 21,
+    title: "Responsible Student Mobility: A Framework for the Next Decade",
+    category: "policy",
+    date: "January 2025",
+    readTime: "16 min read",
+    excerpt: "Proposing principles for ethical and sustainable international education practices.",
+    tags: ["Ethics", "Framework", "Mobility"],
+    featured: false,
+  },
+  {
+    id: 22,
+    title: "Who Protects Students From Bad Advice?",
+    category: "policy",
+    date: "December 2024",
+    readTime: "12 min read",
+    excerpt: "Examining the accountability gap in international education guidance and recruitment.",
+    tags: ["Protection", "Agents", "Ethics"],
+    featured: false,
+  },
+  // Future Scenarios & Foresight
+  {
+    id: 23,
+    title: "What Happens If Visa Approval Rates Continue to Decline?",
+    category: "future",
+    date: "January 2025",
+    readTime: "14 min read",
+    excerpt: "Scenario planning for a more restrictive global mobility environment.",
+    tags: ["Future", "Scenarios", "Planning"],
+    featured: false,
+  },
+  {
+    id: 24,
+    title: "Will Study Abroad Become a Privilege of the Verified?",
+    category: "future",
+    date: "December 2024",
+    readTime: "11 min read",
+    excerpt: "Exploring how verification requirements may reshape access to international education.",
+    tags: ["Access", "Verification", "Future"],
+    featured: false,
+  },
+  // CLA360 Perspective Pieces
+  {
+    id: 25,
+    title: "Why Readiness Must Come Before Application",
+    category: "cla360",
+    date: "January 2025",
+    readTime: "8 min read",
+    excerpt: "The rationale for assessing student readiness before engaging with universities.",
+    tags: ["Readiness", "Philosophy", "CLA360"],
+    featured: false,
+  },
+  {
+    id: 26,
+    title: "Verification as a Public Good in Global Education",
+    category: "cla360",
+    date: "December 2024",
+    readTime: "10 min read",
+    excerpt: "How verification infrastructure benefits students, universities, and the broader education ecosystem.",
+    tags: ["Verification", "Public Good", "Impact"],
+    featured: false,
+  },
+  {
+    id: 27,
+    title: "Why Structure Beats Scale",
+    category: "cla360",
+    date: "November 2024",
+    readTime: "9 min read",
+    excerpt: "The case for quality-focused engagement over volume-driven recruitment.",
+    tags: ["Quality", "Structure", "Philosophy"],
     featured: false,
   },
 ];
 
 const stats = [
-  { label: "Research Papers", value: "45+", icon: FileText },
-  { label: "Data Points Analyzed", value: "2M+", icon: BarChart3 },
-  { label: "Countries Studied", value: "80+", icon: Globe },
-  { label: "Partner Institutions", value: "150+", icon: Award },
+  { label: "Research Themes", value: "10", icon: FileText },
+  { label: "Articles Planned", value: "60+", icon: BarChart3 },
+  { label: "Focus Regions", value: "Africa+", icon: Globe },
+  { label: "Partner Institutions", value: "Growing", icon: Award },
 ];
 
 export default function ResearchPage() {
@@ -153,7 +378,11 @@ export default function ResearchPage() {
                 Research & Insights
               </h1>
               <p className="mt-6 text-lg text-muted-foreground">
-                Data-driven research on international education, student mobility, verification standards, and the future of global learning.
+                Data-driven, research-lite analysis on global student mobility, verification infrastructure, 
+                visa readiness, and responsible cross-border education — with a focus on Africa.
+              </p>
+              <p className="mt-3 text-sm text-muted-foreground italic">
+                Every article reflects the readiness-first approach supported by CLA360.
               </p>
 
               {/* Search Bar */}
@@ -291,23 +520,25 @@ export default function ResearchPage() {
               <h2 className="text-3xl font-bold text-foreground mb-8">All Research</h2>
 
               {/* Category Filter */}
-              <div className="flex flex-wrap gap-3 mb-8">
-                {categories.map((category) => (
-                  <motion.button
-                    key={category.id}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                      selectedCategory === category.id
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-background border hover:border-primary/50"
-                    }`}
-                  >
-                    <category.icon className="h-4 w-4" />
-                    {category.label}
-                  </motion.button>
-                ))}
+              <div className="overflow-x-auto pb-2 -mx-6 px-6 lg:mx-0 lg:px-0">
+                <div className="flex gap-2 mb-8 min-w-max">
+                  {categories.map((category) => (
+                    <motion.button
+                      key={category.id}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
+                        selectedCategory === category.id
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-background border hover:border-primary/50"
+                      }`}
+                    >
+                      <category.icon className="h-4 w-4" />
+                      {category.label}
+                    </motion.button>
+                  ))}
+                </div>
               </div>
 
               {/* Research Grid */}
@@ -379,7 +610,7 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
+        {/* About This Research Section */}
         <section className="py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <motion.div
@@ -393,21 +624,31 @@ export default function ResearchPage() {
                   <div className="grid lg:grid-cols-2 gap-8 items-center">
                     <div>
                       <h2 className="text-3xl font-bold text-foreground">
-                        Partner with us on research
+                        About Our Research
                       </h2>
                       <p className="mt-4 text-muted-foreground">
-                        Collaborate with CLA360 on cutting-edge research in international education, verification standards, and student mobility.
+                        Every article is treated as research-lite, not opinion. We use data, policy references, 
+                        and institutional framing. We write with neutrality, not advocacy.
                       </p>
+                      <div className="mt-4 p-4 bg-muted/50 rounded-lg">
+                        <p className="text-sm text-muted-foreground italic">
+                          "This article is published by the team at CLA360, a verification-first platform 
+                          focused on readiness and responsible global student mobility."
+                        </p>
+                        <p className="mt-2 text-sm text-muted-foreground">
+                          Learn more at <Link href="/" className="text-primary hover:underline">cla360.com</Link>
+                        </p>
+                      </div>
                       <div className="mt-6 flex flex-wrap gap-4">
                         <Button size="lg" asChild>
                           <Link href="/contact">
-                            Get in Touch
+                            Partner on Research
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Link>
                         </Button>
                         <Button size="lg" variant="outline" asChild>
                           <Link href="/trust">
-                            View Methodology
+                            Our Methodology
                           </Link>
                         </Button>
                       </div>
@@ -415,9 +656,9 @@ export default function ResearchPage() {
                     <div className="grid grid-cols-2 gap-4">
                       {[
                         { icon: Target, label: "Data-Driven" },
-                        { icon: Users, label: "Collaborative" },
-                        { icon: Award, label: "Peer-Reviewed" },
-                        { icon: Globe, label: "Global Impact" },
+                        { icon: Scale, label: "Neutral Framing" },
+                        { icon: BookOpen, label: "Policy-Referenced" },
+                        { icon: Globe, label: "Africa-Focused" },
                       ].map((item, i) => (
                         <motion.div
                           key={item.label}

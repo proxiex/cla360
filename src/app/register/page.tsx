@@ -24,10 +24,11 @@ import {
   User,
   GraduationCap,
   Shield,
-  Users,
+  Award,
   Sparkles,
   CheckCircle,
   Globe,
+  Calendar,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -37,12 +38,6 @@ const countries = [
   "India", "Pakistan", "Bangladesh", "Philippines", "Vietnam", "Indonesia", "Other",
 ];
 
-const userTypes = [
-  { id: "student", label: "Student", description: "I'm looking to study abroad" },
-  { id: "agent", label: "Education Agent", description: "I help students apply to universities" },
-  { id: "university", label: "University", description: "I represent an educational institution" },
-];
-
 export default function RegisterPage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
@@ -50,7 +45,6 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   
   const [formData, setFormData] = useState({
-    userType: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -73,14 +67,13 @@ export default function RegisterPage() {
     router.push("/app/dashboard");
   };
 
-  const canProceedStep1 = formData.userType !== "";
-  const canProceedStep2 = formData.firstName && formData.lastName && formData.email && formData.country;
+  const canProceedStep1 = formData.firstName && formData.lastName && formData.email && formData.country;
   const canSubmit = formData.password.length >= 8 && formData.password === formData.confirmPassword && formData.agreeTerms;
 
   const features = [
-    { icon: Shield, text: "Verified credentials" },
-    { icon: GraduationCap, text: "University matching" },
-    { icon: Users, text: "Expert guidance" },
+    { icon: Shield, text: "Verification-first platform" },
+    { icon: Award, text: "Hard PRV Score for universities" },
+    { icon: Calendar, text: "Curated university engagements" },
   ];
 
   return (
@@ -112,9 +105,7 @@ export default function RegisterPage() {
             transition={{ delay: 0.2 }}
             className="text-4xl font-bold text-white leading-tight"
           >
-            Start your journey
-            <br />
-            to global education
+            Start with readiness
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -122,7 +113,7 @@ export default function RegisterPage() {
             transition={{ delay: 0.3 }}
             className="text-white/80 text-lg max-w-md"
           >
-            Create your account and get access to verified credentials, university matching, and expert guidance.
+            Create your account to check your readiness and become eligible for verified university engagement.
           </motion.p>
 
           <motion.div
@@ -178,7 +169,7 @@ export default function RegisterPage() {
 
           {/* Progress Steps */}
           <div className="flex items-center justify-center gap-2 mb-8">
-            {[1, 2, 3].map((s) => (
+            {[1, 2].map((s) => (
               <div key={s} className="flex items-center">
                 <motion.div
                   initial={false}
@@ -192,7 +183,7 @@ export default function RegisterPage() {
                 >
                   {step > s ? <CheckCircle className="h-4 w-4" /> : s}
                 </motion.div>
-                {s < 3 && (
+                {s < 2 && (
                   <div className={`w-12 h-0.5 mx-1 ${step > s ? "bg-primary" : "bg-muted"}`} />
                 )}
               </div>
@@ -200,7 +191,7 @@ export default function RegisterPage() {
           </div>
 
           <AnimatePresence mode="wait">
-            {/* Step 1: User Type */}
+            {/* Step 1: Personal Info */}
             {step === 1 && (
               <motion.div
                 key="step1"
@@ -212,55 +203,6 @@ export default function RegisterPage() {
               >
                 <div className="text-center lg:text-left">
                   <h2 className="text-2xl font-bold">Create your account</h2>
-                  <p className="text-muted-foreground mt-2">
-                    Select how you'll use CLA360
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  {userTypes.map((type) => (
-                    <motion.button
-                      key={type.id}
-                      type="button"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => updateField("userType", type.id)}
-                      className={`w-full p-4 rounded-lg border-2 text-left transition-colors ${
-                        formData.userType === type.id
-                          ? "border-primary bg-primary/5"
-                          : "border-muted hover:border-primary/50"
-                      }`}
-                    >
-                      <div className="font-medium">{type.label}</div>
-                      <div className="text-sm text-muted-foreground">{type.description}</div>
-                    </motion.button>
-                  ))}
-                </div>
-
-                <Button
-                  onClick={() => setStep(2)}
-                  className="w-full group"
-                  size="lg"
-                  disabled={!canProceedStep1}
-                >
-                  Continue
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </motion.div>
-            )}
-
-            {/* Step 2: Personal Info */}
-            {step === 2 && (
-              <motion.div
-                key="step2"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-6"
-              >
-                <div className="text-center lg:text-left">
-                  <h2 className="text-2xl font-bold">Personal information</h2>
                   <p className="text-muted-foreground mt-2">
                     Tell us a bit about yourself
                   </p>
@@ -323,32 +265,22 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                <div className="flex gap-3">
-                  <Button
-                    variant="outline"
-                    onClick={() => setStep(1)}
-                    className="group"
-                  >
-                    <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                    Back
-                  </Button>
-                  <Button
-                    onClick={() => setStep(3)}
-                    className="flex-1 group"
-                    size="lg"
-                    disabled={!canProceedStep2}
-                  >
-                    Continue
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </div>
+                <Button
+                  onClick={() => setStep(2)}
+                  className="w-full group"
+                  size="lg"
+                  disabled={!canProceedStep1}
+                >
+                  Continue
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
               </motion.div>
             )}
 
-            {/* Step 3: Password & Submit */}
-            {step === 3 && (
+            {/* Step 2: Password & Submit */}
+            {step === 2 && (
               <motion.div
-                key="step3"
+                key="step2"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -439,7 +371,7 @@ export default function RegisterPage() {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => setStep(2)}
+                      onClick={() => setStep(1)}
                       className="group"
                     >
                       <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />

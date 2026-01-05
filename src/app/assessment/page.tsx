@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ProtectedAssessment } from "./protected-assessment";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -287,6 +289,143 @@ function calculateScore(data: AssessmentData) {
 }
 
 export default function AssessmentPage() {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check if user is authenticated (simplified check - replace with real auth)
+    const checkAuth = () => {
+      const user = localStorage.getItem("user");
+      if (user) {
+        const userData = JSON.parse(user);
+        setIsAuthenticated(true);
+        setUserEmail(userData.email || "");
+      } else {
+        setIsAuthenticated(false);
+      }
+      setLoading(false);
+    };
+    checkAuth();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="h-12 w-12 mx-auto rounded-full border-4 border-primary border-t-transparent animate-spin" />
+            <p className="mt-4 text-muted-foreground">Loading...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">
+          <section className="py-20 lg:py-32">
+            <div className="mx-auto max-w-3xl px-6 text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="mx-auto mb-8 h-20 w-20 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                  <Shield className="h-10 w-10 text-white" />
+                </div>
+                <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+                  <span className="text-foreground">Get Your</span>
+                  <br />
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    PRV Score
+                  </span>
+                </h1>
+                <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Your Profile Readiness Verification (PRV) score helps you understand your 
+                  readiness for international education. Sign up to get your personalized assessment.
+                </p>
+
+                <div className="mt-8 space-y-6">
+                  {/* Benefits */}
+                  <div className="grid gap-4 md:grid-cols-3 max-w-2xl mx-auto">
+                    {[
+                      { icon: Target, title: "Personalized Score", desc: "Get insights tailored to your profile" },
+                      { icon: FileCheck, title: "Instant Results", desc: "Receive your PRV score immediately" },
+                      { icon: Award, title: "Action Plan", desc: "Get recommendations to improve" },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 + i * 0.1 }}
+                        className="text-center"
+                      >
+                        <div className="mx-auto mb-3 h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                          <item.icon className="h-6 w-6 text-primary" />
+                        </div>
+                        <h3 className="font-semibold text-foreground">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-primary to-secondary text-white rounded-full px-8"
+                      asChild
+                    >
+                      <Link href="/register">
+                        <User className="mr-2 h-5 w-5" />
+                        Create Account & Get PRV Score
+                      </Link>
+                    </Button>
+                    <Button size="lg" variant="outline" className="rounded-full px-8" asChild>
+                      <Link href="/login">
+                        Already have an account? Sign In
+                      </Link>
+                    </Button>
+                  </div>
+
+                  {/* Trust Badge */}
+                  <div className="mt-8">
+                    <Badge variant="outline" className="bg-white">
+                      <Shield className="mr-2 h-3 w-3" />
+                      Free • Secure • No Credit Card Required
+                    </Badge>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // User is authenticated, show the assessment
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex-1">
+        <ProtectedAssessment userEmail={userEmail} />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+// Original assessment code below (keeping for reference but not using)
+function OriginalAssessmentPage() {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<AssessmentData>(initialData);
   const [score, setScore] = useState<ReturnType<typeof calculateScore> | null>(null);
@@ -343,11 +482,11 @@ export default function AssessmentPage() {
                     >
                       <Sparkles className="h-8 w-8 text-primary" />
                     </motion.div>
-                    <CardTitle className="text-2xl">Check Your Readiness</CardTitle>
+                    <CardTitle className="text-2xl">Start with readiness</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6 relative">
                     <p className="text-center text-muted-foreground">
-                      Answer a few questions to get an early readiness signal. No documents required — takes about 5 minutes.
+                      Answer a few questions to get an early readiness signal. No documents.
                     </p>
                     
                     <div className="grid grid-cols-4 gap-2 py-4">
@@ -376,6 +515,7 @@ export default function AssessmentPage() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6 }}
+                      className="space-y-3"
                     >
                       <Button size="lg" onClick={goNext} className="w-full group">
                         Start Soft PRV Score
@@ -386,6 +526,9 @@ export default function AssessmentPage() {
                         >
                           <ArrowRight className="h-4 w-4" />
                         </motion.span>
+                      </Button>
+                      <Button size="lg" variant="outline" className="w-full" asChild>
+                        <Link href="/signin">Sign in (optional)</Link>
                       </Button>
                     </motion.div>
                     

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,12 +12,9 @@ import {
   QrCode,
   ArrowRight,
   CheckCircle,
+  Download,
+  Eye,
 } from "lucide-react";
-
-export const metadata = {
-  title: "University Engagements - CLA360",
-  description: "Your university engagement opportunities",
-};
 
 const upcomingEvents = [
   {
@@ -25,8 +24,32 @@ const upcomingEvents = [
     date: "October 2026",
     format: "In-person",
     eligible: false,
+    approved: false,
     status: "upcoming",
   },
+];
+
+interface ApprovedEvent {
+  id: string;
+  name: string;
+  location: string;
+  date: string;
+  format: string;
+  approved: boolean;
+  qrCode?: string;
+}
+
+const approvedEvents: ApprovedEvent[] = [
+  // Example of an approved event with QR code
+  // {
+  //   id: "2",
+  //   name: "CLA360 University Engagement — Lagos",
+  //   location: "Lagos, Nigeria",
+  //   date: "September 2026",
+  //   format: "In-person",
+  //   approved: true,
+  //   qrCode: "QR_CODE_DATA_HERE",
+  // },
 ];
 
 const pastEvents: typeof upcomingEvents = [];
@@ -36,6 +59,16 @@ export default function EngagementsPage() {
 
   return (
     <div className="p-6 lg:p-8">
+      {/* Status Badge - shown when verified */}
+      {isVerified && (
+        <div className="mb-6 flex justify-center">
+          <Badge className="bg-green-100 text-green-700 border border-green-200 px-4 py-1.5">
+            <CheckCircle className="mr-2 h-4 w-4" />
+            Status: University-Eligible (Verified)
+          </Badge>
+        </div>
+      )}
+
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-foreground">University Engagements</h1>
         <p className="mt-1 text-muted-foreground">
@@ -147,18 +180,61 @@ export default function EngagementsPage() {
         )}
       </div>
 
-      {/* Your QR Codes */}
+      {/* Your Event Access - QR Codes */}
       {isVerified && (
         <div className="mb-8">
           <h2 className="mb-4 text-lg font-semibold">Your Event Access</h2>
-          <Card>
-            <CardContent className="py-12 text-center">
-              <QrCode className="mx-auto h-12 w-12 text-muted-foreground/50" />
-              <p className="mt-4 text-muted-foreground">
-                QR codes will appear here when you're approved for events
-              </p>
-            </CardContent>
-          </Card>
+          <p className="mb-4 text-sm text-muted-foreground">
+            QR codes for approved events appear here. Present your QR code at the event for entry.
+          </p>
+          {approvedEvents.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-2">
+              {approvedEvents.map((event) => (
+                <Card key={event.id} className="border-2 border-green-200">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <Badge className="mb-2 bg-green-100 text-green-700">Approved</Badge>
+                        <h3 className="font-semibold text-foreground">{event.name}</h3>
+                        <div className="mt-2 space-y-1 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4" />
+                            {event.location}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Calendar className="h-4 w-4" />
+                            {event.date}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex h-24 w-24 items-center justify-center rounded-lg border-2 border-dashed bg-muted">
+                        <QrCode className="h-16 w-16 text-foreground" />
+                      </div>
+                    </div>
+                    <div className="mt-4 flex gap-2">
+                      <Button size="sm" variant="outline">
+                        <Eye className="mr-2 h-4 w-4" />
+                        View QR
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Download className="mr-2 h-4 w-4" />
+                        Download
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card>
+              <CardContent className="py-12 text-center">
+                <QrCode className="mx-auto h-12 w-12 text-muted-foreground/50" />
+                <p className="mt-4 text-muted-foreground">
+                  QR codes will appear here when you're approved for events
+                </p>
+              </CardContent>
+            </Card>
+          )}
         </div>
       )}
 

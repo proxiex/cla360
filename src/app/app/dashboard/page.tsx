@@ -77,10 +77,15 @@ const verificationSteps = [
 ];
 
 const quickActions = [
-  { label: "Complete Verification", href: "/app/verification", icon: Shield, color: "bg-blue-500" },
+  { label: "Continue Verification", href: "/app/documents", icon: Shield, color: "bg-blue-500" },
   { label: "View PRV Score", href: "/app/prv-score", icon: Award, color: "bg-green-500" },
-  { label: "Browse Universities", href: "/universities", icon: Building2, color: "bg-purple-500" },
-  { label: "Schedule Consultation", href: "/app/consultations", icon: Calendar, color: "bg-orange-500" },
+  { label: "Visa Readiness", href: "/app/visa-readiness", icon: FileCheck, color: "bg-purple-500" },
+  { label: "University Engagements", href: "/app/engagements", icon: Calendar, color: "bg-orange-500" },
+];
+
+const alerts = [
+  { message: "Documents pending verification", type: "warning", href: "/app/documents" },
+  { message: "Visa readiness incomplete", type: "warning", href: "/app/visa-readiness" },
 ];
 
 const recentActivity = [
@@ -146,13 +151,37 @@ export default function DashboardPage() {
           </p>
         </motion.div>
 
+        {/* Key Alerts */}
+        {alerts.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mb-6"
+          >
+            <div className="space-y-2">
+              {alerts.map((alert, i) => (
+                <Link
+                  key={i}
+                  href={alert.href}
+                  className="flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 p-3 hover:bg-amber-100 transition-colors"
+                >
+                  <Bell className="h-4 w-4 text-amber-600" />
+                  <span className="flex-1 text-sm font-medium text-amber-900">{alert.message}</span>
+                  <ChevronRight className="h-4 w-4 text-amber-600" />
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         {/* Stats Cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
           {[
-            { label: "Soft PRV Score", value: softPrvScore, suffix: "/100", icon: Award, color: "text-green-500" },
+            { label: "Hard PRV Score", value: 0, suffix: "", icon: Award, color: "text-green-500", status: "Not Started" },
             { label: "Verification", value: verificationProgress, suffix: "%", icon: Shield, color: "text-blue-500" },
-            { label: "Universities Matched", value: 12, suffix: "", icon: Building2, color: "text-purple-500" },
-            { label: "Days Active", value: 14, suffix: "", icon: Clock, color: "text-orange-500" },
+            { label: "University Interest", value: 3, suffix: "", icon: Building2, color: "text-purple-500" },
+            { label: "Event Invites", value: 1, suffix: "", icon: Calendar, color: "text-orange-500" },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -333,6 +362,45 @@ export default function DashboardPage() {
 
           {/* Sidebar - 1 column */}
           <div className="space-y-6">
+            {/* University Engagement Status Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 }}
+            >
+              <Card className="border-2 border-green-200 bg-green-50/50">
+                <CardHeader className="pb-2">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Building2 className="h-5 w-5 text-green-600" />
+                    University Engagement Status
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span className="text-muted-foreground">Verified</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span className="text-muted-foreground">PRV Score Completed</span>
+                  </div>
+                  <div className="mt-4 pt-3 border-t">
+                    <p className="text-xs text-muted-foreground mb-2">Universities can now:</p>
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      <li>• View your profile</li>
+                      <li>• Express interest</li>
+                      <li>• Invite you to engagements</li>
+                    </ul>
+                  </div>
+                  <Button size="sm" className="w-full mt-2" asChild>
+                    <Link href="/app/engagements">
+                      View University Engagements
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+
             {/* Quick Actions */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}

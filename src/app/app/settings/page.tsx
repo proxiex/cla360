@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -20,7 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { CheckCircle, Save, Shield, Bell, Lock, Trash2 } from "lucide-react";
+import { CheckCircle, Save, Shield, Bell, Lock, Trash2, CreditCard, HelpCircle, Download } from "lucide-react";
 
 export default function SettingsPage() {
   const [saved, setSaved] = useState(false);
@@ -35,15 +36,17 @@ export default function SettingsPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-foreground">Settings</h1>
         <p className="mt-1 text-muted-foreground">
-          Manage your account settings and preferences.
+          Manage your account, preferences, and records.
         </p>
       </div>
 
       <Tabs defaultValue="account" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsList className="flex-wrap h-auto gap-1">
+          <TabsTrigger value="account">Account & Security</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
-          <TabsTrigger value="privacy">Privacy & Data</TabsTrigger>
+          <TabsTrigger value="privacy">Privacy & Consent</TabsTrigger>
+          <TabsTrigger value="payments">Payments & Receipts</TabsTrigger>
+          <TabsTrigger value="support">Support</TabsTrigger>
         </TabsList>
 
         <TabsContent value="account">
@@ -172,10 +175,13 @@ export default function SettingsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="h-5 w-5" />
-                  Privacy Settings
+                  Privacy & Consent
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
+                <p className="text-sm text-muted-foreground">
+                  Review and manage how your data is used.
+                </p>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Profile Visibility</p>
@@ -188,21 +194,24 @@ export default function SettingsPage() {
                 <Separator />
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">Analytics</p>
+                    <p className="font-medium">View Active Consents</p>
                     <p className="text-sm text-muted-foreground">
-                      Help us improve by sharing anonymous usage data
+                      Review what you've consented to
                     </p>
                   </div>
-                  <Switch />
+                  <Button variant="outline" size="sm">View</Button>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Your Data</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Data Access Permissions</p>
+                    <p className="text-sm text-muted-foreground">
+                      Manage which institutions can access your data
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm">Manage</Button>
+                </div>
+                <Separator />
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">Download Your Data</p>
@@ -210,19 +219,42 @@ export default function SettingsPage() {
                       Get a copy of all your data stored on CLA360
                     </p>
                   </div>
-                  <Button variant="outline">Download</Button>
+                  <Button variant="outline" size="sm">
+                    <Download className="mr-2 h-4 w-4" />
+                    Download
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  All data use is governed by CLA360's Trust & Compliance standards.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Account Controls</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Deactivate Account</p>
+                    <p className="text-sm text-muted-foreground">
+                      Temporarily disable your account
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm">Deactivate</Button>
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-destructive">Delete Account</p>
+                    <p className="font-medium text-destructive">Request Account Deletion</p>
                     <p className="text-sm text-muted-foreground">
                       Permanently delete your account and all associated data
                     </p>
                   </div>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="destructive">
+                      <Button variant="destructive" size="sm">
                         <Trash2 className="mr-2 h-4 w-4" />
                         Delete
                       </Button>
@@ -243,6 +275,79 @@ export default function SettingsPage() {
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="payments">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CreditCard className="h-5 w-5" />
+                Payments & Receipts
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <p className="text-sm text-muted-foreground">
+                View records of completed transactions related to verification and engagement.
+              </p>
+              <p className="text-sm font-medium">This section is for records only.</p>
+              
+              <div className="rounded-lg border p-4">
+                <p className="text-sm text-muted-foreground text-center py-8">
+                  No payment history yet.
+                </p>
+              </div>
+
+              <div className="rounded-lg bg-muted/50 border p-4">
+                <p className="text-sm text-muted-foreground">
+                  Payments are requested only when required to complete verification or enable eligibility.
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  CLA360 does not use payments to influence admissions or university engagement.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="support">
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <HelpCircle className="h-5 w-5" />
+                  Support
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <p className="text-sm text-muted-foreground">
+                  Access help and assistance.
+                </p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Help Center</p>
+                    <p className="text-sm text-muted-foreground">
+                      Browse FAQs and guides
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/app/help">Visit Help Center</Link>
+                  </Button>
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Contact Support</p>
+                    <p className="text-sm text-muted-foreground">
+                      Get help from the CLA360 team
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="/contact">Contact Us</Link>
+                  </Button>
                 </div>
               </CardContent>
             </Card>

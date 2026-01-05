@@ -5,17 +5,17 @@ const footerLinks = {
   company: [
     { name: "About CLA360", href: "/about" },
     { name: "How It Works", href: "/how-it-works" },
-    { name: "Events", href: "/events" },
-    { name: "Research & Insights", href: "/research" },
+    { name: "Trust & Compliance", href: "/trust" },
+    { name: "Contact", href: "/contact" },
   ],
   resources: [
     { name: "For Students", href: "/students" },
     { name: "For Universities", href: "/universities" },
-    { name: "FAQ", href: "/faq" },
-    { name: "Help Center", href: "/help" },
+    { name: "Events", href: "/events" },
+    { name: "Research & Insights", href: "/research" },
   ],
   legal: [
-    { name: "Trust & Compliance", href: "/trust" },
+    { name: "FAQ", href: "/faq" },
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
   ],

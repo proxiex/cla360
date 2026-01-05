@@ -13,6 +13,7 @@ import {
   Users,
   X,
   RefreshCw,
+  Scale,
 } from "lucide-react";
 
 export const metadata = {
@@ -286,6 +287,34 @@ export default function TrustPage() {
                   </ul>
                   <p className="mt-4 text-sm font-medium text-foreground">
                     These standards protect students, institutions, and sponsors alike.
+                  </p>
+                </div>
+
+                <Separator />
+
+                {/* Regulatory Awareness */}
+                <div>
+                  <div className="flex items-center gap-3">
+                    <Scale className="h-6 w-6 text-primary" />
+                    <h2 className="text-xl font-bold text-foreground">Regulatory Awareness</h2>
+                  </div>
+                  <p className="mt-4 text-muted-foreground">
+                    CLA360 operates with awareness of:
+                  </p>
+                  <ul className="mt-6 space-y-2">
+                    {[
+                      "Cross-border data considerations",
+                      "Institutional compliance expectations",
+                      "The evolving regulatory landscape surrounding student mobility",
+                    ].map((item) => (
+                      <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <CheckCircle className="h-4 w-4 text-primary" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 text-sm font-medium text-foreground">
+                    We design systems that are adaptable to regulatory and institutional requirements.
                   </p>
                 </div>
 
